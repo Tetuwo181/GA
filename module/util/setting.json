@@ -1,0 +1,56 @@
+{
+    "individual":{
+        "genotype":  "BIN",
+        "gene_length": 50,
+        "is_max": true,
+        },
+    "ga":{
+        "population_num": 100,
+        "generation_max": 1000,        
+        },
+    "select":{
+        "stype": "TOUR",
+        "tournament_num": 4
+        },
+    "genotype":{
+        "BIN":{
+            "CROSS":{"ONE", "TWO", "UNI"},
+            "MUTATE":{"INV"}
+              },
+        "ORD":{
+            "CROSS":{"REP"},
+            "MUTATE":{"EXC"}
+              },
+        "REAL":{
+            "CROSS":{"BLX"},
+            "MUTATE":{"RAND", "GAU"}
+              }
+        },
+    "crossover":{
+        "type": "UNI",
+        "prob": 1.0,
+        "ONE":{},
+        "TWO":{},
+        "UNI":{},
+        "REP";{
+               "replacement_num": 2
+            },
+        "BLX"{
+             "alpha":0.2,
+             "max":1.0,
+             "min":-1.0
+             }
+        },
+    "mutation":{
+        "type":  "INV",
+        "prob": 0.01,
+        "BLX":{
+            "alpha":0,2
+            },
+        "GAU":{
+            "sigma":0.1
+            }
+        },
+    "//": "遺伝子が実数の配列で表される場合の範囲が書かれたcsvファイルの箇所",
+    "max_min": "max_and_min.csv",
+}
