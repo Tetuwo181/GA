@@ -1,8 +1,8 @@
 #coding: UTF-8
 import random
 import numpy as np
-from ...individual import individual as INDI
-from ...individual import population as POP
+from ...indi import individual as INDI
+from ...indi import population as POP
 from typing import Optional
 from typing import Tuple
 from numba import jit 
@@ -63,18 +63,19 @@ def tournament_base(population):
     else:
         new_group = []
         individuals = population[:]
-    group1 = individuals[:len(individuals)/2]
-    group2 = individuals[len(individuals)/2:]
+    mid = int(len(individuals)/2)
+    group1 = individuals[:mid]
+    group2 = individuals[mid:]
     selected = [binary_tournament(individual1, individual2) for individual1, individual2
                  in zip(group1, group2)]
     new_group.extend(selected)
     return tournament_base(new_group)
 
 #個体群から2個体をトーナメント
-def set_tournament_num(tournament_num = 2):
+def set_tournament_num(tournament_num = 2): 
     @jit
     def tournament(parents_pool):
-        individuals = random.sample(parents_pool, tournament_num)
+        individuals = random.sample(parents_pool[:], tournament_num)
         return tournament_base(individuals)
     return tournament
 
@@ -106,17 +107,17 @@ class Selection(object):
         self.__algo = selection_algo
         self.__build_pop_num_default = build_pop_num
     
-    def execute(self, population:INDI.Population) -> INDI.BaseIndividual:
+    def execute(self, population:POP.Population) -> INDI.BaseIndividual:
         return self.__algo(population)
             
-    def build_group(self, population:INDI.Population, choice_num:Optional[int] = None) -> INDI.Population:
+    def build_group(self, population:POP.Population, choice_num:Optional[int] = None) -> POP.Population:
         if choice_num is None:
             pop_num = population.length
         else:
             pop_num = choice_num
         return INDI.Population([self.execute(population) for index in range(pop_num)])
     
-    def build_parents(self, population:INDI.Population, pair_num:int = 2, choice_num:Optional[int] = None):
+    def build_parents(self, population:POP.Population, pair_num:int = 2, choice_num:Optional[int] = None):
         return tuple([self.build_group(population, choice_num) for index in range(pair_num)])
     
 

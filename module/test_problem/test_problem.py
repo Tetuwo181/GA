@@ -8,6 +8,20 @@ def binary_num(gene):
     vector_of_gene = np.array(gene)
     return np.sum(vector_of_gene)
 
+def binary_two(gene):
+    """
+    多目的最適化のテスト用
+    遺伝子中の1の数と0の数をカウントし、そのタプルを返す
+    """
+    num_zero = 0
+    num_one = 0
+    for gen in gene:
+        if gen == 0:
+            num_zero = num_zero + 1
+        else:
+            num_one = num_one + 1
+    return (num_zero, num_one)
+
 
 def init_knapsack(item_set, capacity):
     """

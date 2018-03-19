@@ -71,10 +71,10 @@ class Individual(BaseIndividual):
         super().__init__(geno_base, is_max,  problem)
 
     def __lt__(self, other) -> bool:
-        if self.is_max is True:
-            return self.phenotype > other.phenotype
-        else:
+        if self.is_max:
             return self.phenotype < other.phenotype
+        else:
+            return self.phenotype > other.phenotype
 
 
 #各個体
@@ -91,10 +91,10 @@ class IndividualMultiObject(BaseIndividual):
         check_superior = self.phenotype - other.phenotype
         for attribute in check_superior:
             if self.is_max is True:
-                if attribute < 0:
+                if attribute > 0:
                     return False
             else:
-                if attribute > 0:
+                if attribute < 0:
                     return False
         return True
     

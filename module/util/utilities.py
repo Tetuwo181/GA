@@ -1,6 +1,6 @@
 #coding: UTF-8
 import numpy as np
-import individual as INDI
+from ..indi import individual as INDI
 from numba import jit 
 
 #上限と下限をカットする
