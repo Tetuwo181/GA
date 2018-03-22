@@ -72,11 +72,16 @@ class RecorderDouble(Recorder):
 
 
 
-def recorder_builder(is_multi = False):
+def recorder_builder(objective_num = 1):
     """
     Recorderを生成する関数
     単一目的最適化ならRecorderSingleを
     2目的ならRecordDoubleを
     多目的ならRecordMultiを返す
     """
+    if objective_num == 1:
+        return Recorder
+    else:
+        return RecorderDouble
+        
         
