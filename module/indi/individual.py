@@ -100,12 +100,12 @@ class IndividualMultiObject(BaseIndividual):
     
 
 
-def incubator_builder(problem, is_max:bool, is_multi_optimize:bool):
+def incubator_builder(problem, is_max:bool, optimize_num:int = 1):
     """
     単一目的か多目的かに応じて個体を
     生成する個体のクラスを変更する
     """
-    if is_multi_optimize:
+    if optimize_num == 1:
         return lambda genom: IndividualMultiObject(genom, is_max, problem)
     else:
         return lambda genom: Individual(genom, is_max, problem)
